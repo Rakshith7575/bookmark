@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %} Edit Bookmark - Bookmark Manager {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+<h2>Edit Bookmark</h2>
+
+<form method="post">
+{% csrf_token %}
+<div class="mb-3">
+<label class="form-label">Title</label>
+<input type="text" name="title" class="form-control" value="{{bookmark.title}}" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">URL</label>
+<input type="url" name="url" class="form-control" value="{{bookmark.url}}" required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label">Category</label>
+    <select name="category" class="form-select">
+        {% for key,value in categories %}
+            <option value="{{key}}" {% if bookmark.category == key %} selected {% endif %}>{{value}}</option>
+        {% endfor %}
+        </select>
+    </div>
+
+
+<button type="submit" class="btn btn-success">Save Changes</button>
+<a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+</form>
+
+</div>
+
+{% endblock %}
